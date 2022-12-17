@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 let DocsService = require("../services/docs");
+let auth = require("../middleware/authJWT");
+const app = require("../app");
 
 router.post("/", async (req, res) => {
     console.log(req.formdata)
@@ -14,6 +16,8 @@ router.post("/", async (req, res) => {
         res.status(500).send(e.message);
     }
     });
+
+
 
 
 router.get("/", async (req, res) => {

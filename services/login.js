@@ -8,6 +8,7 @@ module.exports = {
         
         try {
             let user = await Users.query().where("username", (data.username).toLowerCase())
+           
             let passwordIsValid = bcrypt.compareSync(
                 data.password,
                 user[0].password
@@ -23,14 +24,14 @@ module.exports = {
             let token = jwt.sign({
             id: user.id
             }, "84fda5f67869ca09e7cb52f63192b8c88e8dcd2a7c16ee83bea5ecbf1aa3874dde3545", {
-            expiresIn: 20
+            expiresIn: 200
             });
 
 
             return {
                 user: {
-                  id: user.id,
-                  username: user.username,
+                  id: user[0].id,
+                  username: user[0].username,
                 },
                 message: "Login successfull",
                 accessToken: token,

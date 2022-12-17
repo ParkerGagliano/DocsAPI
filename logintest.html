@@ -12,8 +12,32 @@
       <input id="password" type="text" />
       <button type="submit">s</button>
     </form>
+
+    <button onclick="test()"></button>
   </body>
   <script>
+    let token = "";
+    function successfulLogin(data) {
+      alert(data.accessToken);
+      token = "JWT " + data.accessToken;
+    }
+    function test() {
+      console.log("dasdas");
+      let myHeaders = new Headers();
+
+      let requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+      };
+
+      myHeaders.append("Authorization", token);
+
+      fetch(`http://127.0.0.1:3000/api/login`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => alert(result))
+        .catch((error) => alert(error));
+    }
+
     const registerForm = document.getElementById("registerForm");
 
     function handleRegisterForm(e) {
@@ -34,8 +58,8 @@
       };
 
       fetch(`http://127.0.0.1:3000/api/login`, requestOptions)
-        .then((response) => response.text())
-        .then((result) => alert(result))
+        .then((response) => response.json())
+        .then((result) => successfulLogin(result))
         .catch((error) => alert(error));
     }
 

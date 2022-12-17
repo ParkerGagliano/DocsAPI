@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 let LoginService = require("../services/login");
+let auth = require("../middleware/authJWT");
+const verifyToken = require("../middleware/authJWT");
 
 router.post("/", async (req, res) => {
     
@@ -16,7 +18,19 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.use(auth)
 
+router.get("", async (req, res) => {
+    if (!req.user) {
+        console.log('dnasjkdas')
+        res.send('noauth')
+    }
+    else {
+        console.log('dasnjkdjaskdnjsadanks')
+        res.send('joebiden')
+    }
+
+})
 
 
 
