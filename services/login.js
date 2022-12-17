@@ -1,11 +1,43 @@
-let {Docs} = require("../models/docs");
-
+let {Users} = require("../models/users");
+var jwt = require("jsonwebtoken");
+var bcrypt = require("bcrypt");
 
 
 module.exports = {
-    async loginUser() {
+    async loginUser(data) {
+        
+        try {
+            let user = await Users.query().where("username", (data.username).toLowerCase())
+            let passwordIsValid = bcrypt.compareSync(
+                data.password,
+                user[0].password
+              );
+            if (!passwordIsValid) {
+                return res.status(401)
+                  .send({
+                    accessToken: null,
+                    message: "Invalid Password!"
+                  });
+              }
+              //signing token with user id
+            let token = jwt.sign({
+            id: user.id
+            }, "84fda5f67869ca09e7cb52f63192b8c88e8dcd2a7c16ee83bea5ecbf1aa3874dde3545", {
+            expiresIn: 20
+            });
 
+
+            return {
+                user: {
+                  id: user.id,
+                  username: user.username,
+                },
+                message: "Login successfull",
+                accessToken: token,
+              }
+        }
+        catch(err) {
+            return err
+        }
     }
-
-    
 }
