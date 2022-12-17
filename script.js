@@ -1,4 +1,19 @@
 const saveForm = document.getElementById('save-form');
+const docSide = document.getElementById('addTitles');
+allDocs = fetch(`http://127.0.0.1:3000/api/docs`).then((response) => response.json()).then((result) => fillSideBar(result)).catch((error) => console.log('error', error));
+
+
+function fillSideBar(data) {
+    if (data != null) {
+        for (let i = 0; i < data.length; i++) {
+            let title = data[i].title;
+            let id = data[i].id;
+            let newDiv = document.createElement('div');
+            newDiv.innerHTML = `<button class="btn btn-primary" onclick="loadDoc(${data[i]})">${title}</button>`;
+            docSide.appendChild(newDiv);
+        }
+    }
+}
 
 function handleSaveForm(e) {
     e.preventDefault();

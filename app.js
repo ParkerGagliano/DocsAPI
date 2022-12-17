@@ -15,6 +15,10 @@ const { docs } = require("./models/docs");
 const routes = require("./routes");
 
 const knex = Knex(knexConfig.development);
+
+const jwt = require('jsonwebtoken')
+const jwtSecret = '84fda5f67869ca09e7cb52f63192b8c88e8dcd2a7c16ee83bea5ecbf1aa3874dde3545'
+
 // Bind all Models to the knex instance. You only
 // need to do this once before you use any of
 // your model classes.
@@ -29,6 +33,16 @@ async function createSchema() {
     table.increments("id").primary();
     table.string("title")
     table.string("content")
+  });
+  if (await knex.schema.hasTable("users")) {
+    return;
+  }
+  // Create database schema. You should use knex migration files
+  // to do this. We create it here for simplicity.
+  await knex.schema.createTable("users", (table) => {
+    table.increments("id").primary();
+    table.string("username")
+    table.string("password")
   });
 }
 createSchema();

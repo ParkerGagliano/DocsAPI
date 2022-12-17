@@ -22,22 +22,30 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-1 bg-secondary" style="height: 100vh">
-          <div class="row">
-            <div class="col"><h5>doc1</h5></div>
-          </div>
+          <div class="row" id="addTitles"></div>
         </div>
         <form id="save-form" class="col-11" style="height: 100vh">
-          <div class="row justify-content-around">
+          <div class="row justify-content-around mt-1">
             <div class="col-2">
-              <button type="submit">save</button>
+              <button class="btn-success btn" type="submit">save</button>
+            </div>
+            <div class="col-3">
+              <input
+                type="text"
+                id="title"
+                placeholder="Title"
+                class="form-control"
+              />
             </div>
 
-            <input type="text" id="title" placeholder="Title" class="col-3" />
-            <div class="col-2"><button id="new-file">new file</button></div>
+            <div class="col-2">
+              <button class="btn-info btn" id="new-file">new file</button>
+            </div>
           </div>
           <div class="row" style="height: 100%; width: 100%">
             <div class="col">
               <textarea
+                class="mt-2"
                 id="main-text"
                 type="text"
                 style="height: 100%; width: 100%"
