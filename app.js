@@ -33,6 +33,7 @@ async function createSchema() {
     table.increments("id").primary();
     table.string("title")
     table.string("content")
+    table.integer("owner_id").references("users.id")
   });
   if (await knex.schema.hasTable("users")) {
     return;

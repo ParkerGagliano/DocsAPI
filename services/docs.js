@@ -21,5 +21,15 @@ module.exports = {
         catch (e) {
             throw new Error(e);
         }
+    },
+
+    async getByOwderID() {
+        try {
+            let docs = await Docs.query().where("owner_id", 1);
+            return docs;
+        }
+        catch (e) {
+            throw new Error(e);
+        }
     }
 }

@@ -3,6 +3,10 @@ const docSide = document.getElementById('addTitles');
 allDocs = fetch(`http://127.0.0.1:3000/api/docs`).then((response) => response.json()).then((result) => fillSideBar(result)).catch((error) => console.log('error', error));
 
 
+function getbyOwnerID() {
+    ownData = fetch(`http://http://127.0.0.1:3000/api/docs/owner`).then((response) => response.text()).then((result) => console.log(result)).catch((error) => console.log('error', error));
+
+}
 function fillSideBar(data) {
     if (data != null) {
         for (let i = 0; i < data.length; i++) {
@@ -24,6 +28,7 @@ function handleSaveForm(e) {
     let urlencoded = new URLSearchParams();
     urlencoded.append("title", filename);
     urlencoded.append("content", data);
+    urlencoded.append("owner_id", 1)
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     let requestOptions = { 
         method: 'POST',

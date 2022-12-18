@@ -23,11 +23,10 @@ router.use(auth)
 router.get("", async (req, res) => {
     if (!req.user) {
         console.log('dnasjkdas')
-        res.send('noauth')
+        
     }
     else {
-        console.log('dasnjkdjaskdnjsadanks')
-        res.send('joebiden')
+        res.send('Josh is an andy')
     }
 
 })
