@@ -4,6 +4,9 @@ let DocsService = require("../services/docs");
 let auth = require("../middleware/authJWT");
 const app = require("../app");
 
+//use auth here then make the req.body.owner_id = req.user.id
+//need to implement it into svelte first
+
 router.post("/", async (req, res) => {
     console.log(req.formdata)
     try {
@@ -31,11 +34,11 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.use(auth)
 
 router.get("/owner", async (req, res) => {
     try {
-        let response = await DocsService.getByOwderID();
-        console.log(response)
+        let response = await DocsService.getByOwderID(1);
         res.send(response);
     }
     catch (e) {

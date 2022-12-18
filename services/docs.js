@@ -23,9 +23,9 @@ module.exports = {
         }
     },
 
-    async getByOwderID() {
+    async getByOwderID(id) {
         try {
-            let docs = await Docs.query().where("owner_id", 1);
+            let docs = await Docs.query().where("owner_id", id);
             return docs;
         }
         catch (e) {
