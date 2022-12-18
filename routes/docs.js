@@ -38,10 +38,11 @@ router.use(auth)
 
 router.get("/owner", async (req, res) => {
     try {
-        let response = await DocsService.getByOwderID(1);
+        let response = await DocsService.getByOwderID(req.id);
         res.send(response);
     }
     catch (e) {
+        console.log(e)
         res.status(500).send(e.message);
     }
 });
