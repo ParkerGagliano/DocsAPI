@@ -24,7 +24,7 @@ module.exports = {
             let token = jwt.sign({
             id: user.id
             }, "84fda5f67869ca09e7cb52f63192b8c88e8dcd2a7c16ee83bea5ecbf1aa3874dde3545", {
-            expiresIn: 200
+            expiresIn: 2000
             });
 
 

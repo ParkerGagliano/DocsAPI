@@ -11,6 +11,7 @@ router.post("/", async (req, res) => {
     if (username && password) {
         let response = await LoginService.loginUser(data)
         console.log(response)
+        res.cookie("session", "123456", { maxAge: 7 * 24 * 60 * 60 * 1000, httpOnly: true })
         res.send(response)
     }
     else {
@@ -18,18 +19,6 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.use(auth)
-
-router.get("", async (req, res) => {
-    if (!req.user) {
-        console.log('dnasjkdas')
-        
-    }
-    else {
-        res.send('Josh is an andy')
-    }
-
-})
 
 
 
