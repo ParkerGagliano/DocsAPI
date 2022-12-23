@@ -8,5 +8,8 @@
     "knex": "^2.3.0",
     "objection": "^3.0.1",
     "sqlite3": "^5.1.2"
+  },
+  "scripts": {
+    "start": "node app.js"
   }
 }

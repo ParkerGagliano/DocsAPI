@@ -4,71 +4,62 @@ let DocsService = require("../services/docs");
 let auth = require("../middleware/authJWT");
 const app = require("../app");
 
-//use auth here then make the req.body.owner_id = req.user.id
-//need to implement it into svelte first
-
 router.get("/", async (req, res) => {
-    console.log('test2')
-    try {
-        let response = await DocsService.getAll();
-        res.send(response);
-    }
-    catch (e) {
-        res.status(500).send(e.message);
-    }
+  try {
+    let response = await DocsService.getAll();
+    res.send(response);
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
 });
 
-router.use(auth)
+router.use(auth);
 
 router.post("/", async (req, res) => {
-
-    try {
-        let data = {title: req.body.title, content: req.body.content, owner_id: req.body.owner_id};
-        console.log(req.body.title)
-        let response = await DocsService.create(data)
-        res.send(response);
-    }
-    catch (e) {
-        res.status(500).send(e.message);
-    }
-    });
-
+  try {
+    let data = {
+      title: req.body.title,
+      content: req.body.content,
+      owner_id: req.body.owner_id,
+    };
+    let response = await DocsService.create(data);
+    res.send(response);
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+});
 
 router.get("/owner", async (req, res) => {
-    try {
-        let response = await DocsService.getByOwderID(req.id);
-        res.send(response);
-    }
-    catch (e) {
-        console.log(e)
-        res.status(500).send(e.message);
-    }
+  try {
+    let response = await DocsService.getByOwderID(req.id);
+    res.send(response);
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
 });
 
 router.patch("/owner", async (req, res) => {
-    try {
-        let data = {title: req.body.title, content: req.body.content, owner_id: req.body.owner_id, id: req.body.id};
-        let response = await DocsService.editDoc(data)
-        console.log(response)
-        res.send(response);
-    }
-    catch (e) {
-        console.log(e)
-        res.status(500).send(e.message);
-    }
+  try {
+    let data = {
+      title: req.body.title,
+      content: req.body.content,
+      owner_id: req.body.owner_id,
+      id: req.body.id,
+    };
+    let response = await DocsService.editDoc(data);
+    res.send(response);
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
 });
 
-
-
 router.delete("/owner", async (req, res) => {
-    try {
-        let response = await DocsService.deleteDoc(req.body.id)
-        console.log(response)
-        res.send(response);
-    }
-    catch (e) {
-        res.sendStatus(500)
-    }
+  try {
+    let response = await DocsService.deleteDoc(req.body.id);
+    res.send(response);
+  } catch (e) {
+    res.sendStatus(500);
+  }
 });
 
 module.exports = router;
